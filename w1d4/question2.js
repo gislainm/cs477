@@ -10,18 +10,20 @@ const path = require('path');
 const http = require('http');
 const fs = require('fs');
 
-// http.createServer((request, response) => {
-//     fs.createReadStream(path.join(__dirname, 'space.jpeg')).pipe(response);
-// }).listen(3000, () => { console.log('listening to port 3000') })
+http.createServer((request, response) => {
+    fs.createReadStream(path.join(__dirname, 'space.jpeg')).pipe(response);
+}).listen(3000, () => { console.log('listening to port 3000') })
 
-// const readableStream = fs.createReadStream(path.join(__dirname, 'space.jpeg'), {
-//     highWaterMark: 16 * 1024
-// });
-// http.createServer((request, response) => {
-//     readableStream.on('data', function (chunk) {
-//         response.write(chunk);
-//     })
-// }).listen(3000, () => { console.log('listening to port 3000') })
+
+const readableStream = fs.createReadStream(path.join(__dirname, 'space.jpeg'), {
+    highWaterMark: 16 * 1024
+});
+http.createServer((request, response) => {
+    readableStream.on('data', function (chunk) {
+        response.write(chunk);
+    })
+}).listen(3000, () => { console.log('listening to port 3000') })
+
 
 http.createServer((req, res) => {
     res.end(fs.readFileSync(path.join(__dirname, 'space.jpeg')));
