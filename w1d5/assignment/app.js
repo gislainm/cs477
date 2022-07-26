@@ -7,6 +7,7 @@ const path = require('path');
 http.createServer((request, response) => {
     if (request.url === "/" && request.method === "GET") {
         fs.createReadStream(path.join(__dirname, 'index.html')).pipe(response);
+        // response.sendFile()
     } else if (request.url === '/blogpost' && request.method === 'POST') {
         const body = [];
         request.on('data', (chunk) => {

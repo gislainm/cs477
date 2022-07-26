@@ -1,0 +1,3 @@
+product:HP,quantity:100
+product:Mac,quantity:200
+product:Iphone,quantity:400
