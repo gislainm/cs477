@@ -1,37 +1,69 @@
-const { objectId } = require('mongodb');
 const User = require('../models/users');
 const path = require('path');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const responseInfo = require('../models/responseInfo')
 
 exports.homepage = async (req, res, next) => {
     console.log('homepage');
-    res.sendFile(path.join(__dirname, '..', '..', 'client', 'loginPage.html'));
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'index.html'));
+}
+exports.home = async(req,res,next)=>{
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'home.html'));
 }
 
 exports.login = async (req, res, next) => {
-    console.log("we here");
-    const userEntry = req.params.userEntry;
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.params.password, salt);
+    const userEntry = req.body.userEntry;
+    const password = req.body.password;
+    const SECRET = "login key for twitter users";
     if (userEntry.includes('@')) {
-        const user = await User.findOne({ email: userEntry, password: hashPassword });
+        const user = await User.findOne({ email: userEntry });
         if (user) {
-            res.status(201).json(user);
+            const result = await bcrypt.compare(password, user.password);
+            if (result) {
+                const accessToken = jwt.sign({
+                    id: user._id,
+                    username: user.username,
+                    iat: Date.now()
+                }, SECRET);
+                res.status(200).json(new responseInfo(false, null, { accessToken }));
+            } else {
+                res.status(400).json(new responseInfo(true, 'wrong password or username', null))
+            }
         } else {
-            res.json('wrong password or username')
+            res.status(400).json(new responseInfo(true, 'wrong password or username', null))
         }
     } else {
-        const user = await User.findOne({ username: "@" + userEntry, password: hashPassword });
+        const user = await User.findOne({ username: "@" + userEntry });
         if (user) {
-            res.status(201).json(user);
+            const result = await bcrypt.compare(password, user.password);
+            if (result) {
+                const accessToken = jwt.sign({
+                    id: user._id,
+                    username: user.username,
+                    iat: Date.now()
+                }, SECRET);
+                res.status(200).json(new responseInfo(false, null, { accessToken }));
+            } else {
+                res.status(400).json(new responseInfo(true, 'wrong password or username', null));
+            }
         } else {
-            res.json('wrong password or username')
+            res.status(400).json(new responseInfo(true, 'wrong password or username', null));
         }
     }
 }
 
 
 exports.signup = async (req, res, next) => {
-    const newuser = await new User(req.body).save()
+    const newuser = new User(req.body);
+    newuser.followers = [];
+    newuser.following = [];
+    newuser.dateJoined = Date.now();
+    await newuser.save()
     res.status(201).json(newuser);
+    res.send("we are in signup");
+}
+
+exports.userpage = async (req, res, next) => {
+    res.send("we are on user's homepage");
 }

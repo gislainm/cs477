@@ -1,6 +1,6 @@
 .container-l {
-    max-width: 50%;
-    width: 50%;
+    max-width: 100%;
+    width: 100%;
     background-image: url('/background.png');
     background-size: cover;
     background-position: center;
@@ -9,11 +9,257 @@
     justify-content: center;
 }
 
-container-r {
-    width: 50%;
-    max-width: 50%;
+.container-r {
+    width: 80%;
+    max-width: 80%;
     background-color: black;
     display: flex;
     align-items: center;
     color: white;
+}
+
+h1 {
+    font-size: 64px;
+    font-weight: 900;
+    margin-top: 50px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-top: 40px;
+    font-weight: 900;
+}
+
+#signupGoogle {
+    width: 300px;
+    font-weight: 600;
+    border-radius: 30px;
+}
+
+#signupApple {
+    width: 300px;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-top: 10px;
+}
+
+#signupEmail {
+    width: 300px;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-top: 10px;
+    background-color: rgb(29, 155, 240);
+}
+
+.orContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.lineLeft {
+    height: 0.5px;
+    background-color: rgb(79, 79, 79);
+    width: 135px;
+}
+
+.lineRight {
+    height: 0.5px;
+    background-color: rgb(79, 79, 79);
+    width: 135px;
+}
+
+.orWord {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: 300;
+}
+
+.terms {
+    font-weight: 200;
+    color: gray;
+    font-size: 12px;
+    margin-top: 5px;
+    width: 300px;
+}
+
+#signin {
+    margin-top: 20px;
+    border: 1px solid gray;
+    border-radius: 40px;
+    width: 300px;
+    color: rgb(29, 155, 240)
+}
+
+.footer {
+    height: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: black;
+    color: gray;
+    font-size: 12px;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.footer>a {
+    margin-left: 3px;
+    margin-right: 3px;
+    color: gray !important;
+}
+
+.homepage {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.content {
+    height: calc(100vh - 70px);
+    display: flex
+}
+
+.signinform {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(0, 0, 0);
+    width: 580px;
+    height: 650px;
+    border-radius: 20px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 0px 400px 1000px rgba(15, 21, 3, 0.539);
+}
+
+.box,
+.box button {
+    display: flex;
+    align-items: center;
+}
+
+.box {
+    width: 300px;
+    height: 240px;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.box button {
+    width: 300px;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    outline: none;
+    font-weight: bold;
+    border: 1px solid rgb(122, 122, 122);
+    border-radius: 20px;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.box-one button img {
+    margin: 0 .5rem;
+}
+
+.box-one i {
+    color: #00acee;
+    font-size: 1.8rem;
+}
+
+.box-two input {
+    color: white;
+    background-color: black;
+    position: relative;
+    width: 300px;
+    height: 45px;
+    outline: none;
+    border: 1px solid rgb(131, 130, 130);
+    border-radius: 7px;
+    padding-left: 10px;
+
+}
+
+.box-two input label {
+    position: absolute;
+    top: 0;
+}
+
+.box-two input::placeholder {
+    font-size: 1rem;
+}
+
+.box-two input:focus {
+    border: 1px solid #00acee;
+}
+
+.box-two .next-btn {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.signinform p {
+    font-size: .7rem;
+    color: rgb(178, 178, 178);
+}
+
+.signinform p a {
+    text-decoration: none;
+    color: #00acee;
+}
+
+#forgot {
+    color: aliceblue;
+    background-color: black;
+    border-color: #8a8a8a;
+}
+
+h5 {
+    width: 70%;
+    text-align: center;
+    border-bottom: 1px solid white;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+}
+
+h5 span {
+    color: white;
+    background: black;
+    padding: 0 10px;
+}
+
+#exit:hover {
+    color: white
+}
+
+#exit {
+    position: relative;
+    right: 280%;
+    top: -50%;
+    color: grey
+}
+
+#invalidEmail {
+    font-size: .8rem;
+    color: #00acee;
+    display: none;
+}
+
+#invalidPassword {
+    font-size: .8rem;
+    color: #00acee;
+    display: none;
+}
+
+#loginbtn {
+    margin-bottom: 3px;
+}
+
+#wrongInfo {
+    color: #00acee;
+    font-size: 1rem;
+
 }
