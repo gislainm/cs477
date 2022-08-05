@@ -61,9 +61,4 @@ exports.signup = async (req, res, next) => {
     newuser.dateJoined = Date.now();
     await newuser.save()
     res.status(201).json(newuser);
-    res.send("we are in signup");
-}
-
-exports.userpage = async (req, res, next) => {
-    res.send("we are on user's homepage");
 }

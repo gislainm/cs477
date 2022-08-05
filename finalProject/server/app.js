@@ -9,16 +9,11 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '..', 'client', 'styles')))
-app.use(express.static(path.join(__dirname, '..', 'client', 'images')))
-app.use(express.static(path.join(__dirname, '..', 'client', 'js')))
+app.use(express.static(path.join(__dirname, '..', 'client')))
 
 app.use(cors());
 app.use(express.json());
 
-// app.use('/home', (req,res,next)=>{
-//     res.send("I'm in home page")
-// })
 app.use('/twitter', userRouter);
 
 app.use((err, req, res, next) => {

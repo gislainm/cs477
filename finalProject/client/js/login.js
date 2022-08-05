@@ -49,6 +49,7 @@ async function login() {
         } else {
             document.getElementById('wrongInfo').innerHTML = '';
             sessionStorage.setItem('accessToken', result.data.accessToken);
+            goToHome();
         }
     } else if (userEntry) {
         document.getElementById('invalidEmail').style.display = 'none';
@@ -56,4 +57,10 @@ async function login() {
         document.getElementById('invalidPassword').style.display = 'none';
     }
 
+}
+
+async function goToHome() {
+    let authorization = sessionStorage.getItem('accessToken');
+    console.log(authorization);
+    window.location = 'twitter/home'
 }

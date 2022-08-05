@@ -1,7 +1,7 @@
 .container-l {
     max-width: 100%;
     width: 100%;
-    background-image: url('/background.png');
+    background-image: url('/images/background.png');
     background-size: cover;
     background-position: center;
     display: flex;
