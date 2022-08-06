@@ -3,19 +3,26 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const responseInfo = require('../models/responseInfo')
+let SECRET;
 
 exports.homepage = async (req, res, next) => {
     console.log('homepage');
     res.sendFile(path.join(__dirname, '..', '..', 'client', 'index.html'));
 }
-exports.home = async(req,res,next)=>{
-    res.sendFile(path.join(__dirname, '..', '..', 'client', 'home.html'));
+exports.authenticate = (req, res, next) => {
+    const [, token] = req.headers.authorization.split(" ");
+    try {
+        let permission = jwt.verify(token, SECRET);
+        res.status(200).json(new responseInfo(false, null, permission));
+    } catch (err) {
+        res.status(400).json(new responseInfo(true, "Invalid JWT", null));
+    }
 }
 
 exports.login = async (req, res, next) => {
     const userEntry = req.body.userEntry;
     const password = req.body.password;
-    const SECRET = "login key for twitter users";
+    SECRET = "login key for twitter users";
     if (userEntry.includes('@')) {
         const user = await User.findOne({ email: userEntry });
         if (user) {
@@ -59,6 +66,11 @@ exports.signup = async (req, res, next) => {
     newuser.followers = [];
     newuser.following = [];
     newuser.dateJoined = Date.now();
-    await newuser.save()
-    res.status(201).json(newuser);
+    try {
+        await newuser.save()
+        res.status(201).json(newuser);
+    } catch (error) {
+        res.status(201).json(new responseInfo(true, "not unique username", null));
+    }
+
 }

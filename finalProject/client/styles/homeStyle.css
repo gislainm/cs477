@@ -272,3 +272,49 @@ aside {
     font-weight: 800;
     color: white;
 }
+
+#currentUser {
+    position: absolute;
+    bottom: 10px;
+    color: white;
+    display: flex;
+    align-self: flex-end;
+    width: 250px;
+}
+
+#currentUser:hover {
+    background-color: rgba(149, 147, 147, 0.202);
+}
+
+#userName {
+    position: static;
+    bottom: 35px;
+    font-weight: 700;
+    font-size: 15px;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+
+#logoutBtn {
+    background-color: #50b7f5;
+    border-radius: 30px;
+    border-width: 0px;
+}
+
+#logoutBtn:hover {
+    background-color: #0a98f0;
+}
+
+#logoutContainer {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+#profilePage {
+    display: none;
+}
+
+#tweetsPage {
+    display: block;
+}
