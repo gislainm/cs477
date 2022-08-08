@@ -35,7 +35,7 @@
             </svg>
         </div>
 
-        <div class="Menu_options active">
+        <div class="Menu_options active" id="backHome">
             <span class="material-icons">home</span>
             <h2>Home</h2>
         </div>
@@ -257,7 +257,7 @@
                     <div id="followersNbr"></div>
                 </div>
             </div>
-            <div id="userInfoContent">
+            <div>
                 <div class="post profileHeader">
                     <div class="user_profile-image">
                         <img src="/images/user.png" alt="user-profile">
@@ -271,79 +271,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
+                <div id="followingContent">
+                    <div class="aside_container" id="followingContainer">
+                    </div>
+                </div>
+                <div id="followersContent">
+                    <div class="aside_container" id="followersContainer">
+                    </div>
+                </div>
+                <div class="container" id="userInfoContent">
                     <div
-                        class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-5 col-lg-offset-3 ml-3 mr-0 toppad">
+                        class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-5 col-lg-offset-3 ml-5 toppad">
                         <div class=" col-md-12 col-lg-12 ">
                             <table class="table table-user-information">
                                 <tbody>
-                                    <tr>
-                                        <td>Department:</td>
-                                        <td>Programming</td>
+                                    <tr class="profilBody">
+                                        <td>Firstname:</td>
+                                        <td class="profilebodyContent" id="fname"></td>
                                     </tr>
-                                    <tr>
-                                        <td>Hire date:</td>
-                                        <td>06/23/2013</td>
+                                    <tr class="profilBody">
+                                        <td>Lastname:</td>
+                                        <td class="profilebodyContent" id="lname"></td>
                                     </tr>
-                                    <tr>
-                                        <td>Date of Birth</td>
-                                        <td>01/24/1988</td>
+                                    <tr class="profilBody">
+                                        <td>Username:</td>
+                                        <td class="profilebodyContent" id="usrname"></td>
                                     </tr>
-
-                                    <tr >
-                                    <tr>
+                                    <tr class="profilBody">
+                                        <td>Email:</td>
+                                        <td class="profilebodyContent" id="email"></td>
+                                    </tr>
+                                    <tr class="profilBody">
+                                        <td>Phone number:</td>
+                                        <td class="profilebodyContent" id="phone"></td>
+                                    </tr>
+                                    <tr class="profilBody">
                                         <td>Gender</td>
-                                        <td>Female</td>
+                                        <td class="profilebodyContent" id="gender"></td>
                                     </tr>
-                                    <tr>
-                                        <td>Home Address</td>
-                                        <td>Kathmandu,Nepal</td>
+                                    <tr class="profilBody">
+                                        <td>Date joined</td>
+                                        <td class="profilebodyContent" id="djt"></td>
                                     </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td><a href="mailto:info@support.com">info@support.com</a></td>
-                                    </tr>
-                                    <td>Phone Number</td>
-                                    <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-                                    </td>
-
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="post profilBody">
-                    Firstname: <label class="profilebodyContent" id="fname"></label>
-                </div>
-                <div class="post profilBody">
-                    Lastname: <label class="profilebodyContent" id="lname"></label>
-                </div>
-                <div class="post profilBody">
-                    Username: <label class="profilebodyContent" id="usrname"></label>
-                </div>
-                <div class="post profilBody">
-                    Email: <label class="profilebodyContent" id="email"></label>
-                </div>
-                <div class="post profilBody">
-                    Phone Number: <label class="profilebodyContent" id="phone"></label>
-                </div>
-                <div class="post profilBody">
-                    Gender: <label class="profilebodyContent" id="gender"></label>
-                </div>
-                <div class="post profilBody">
-                    Date Joined Twitter: <label class="profilebodyContent" id="djt"></label>
-                </div>
             </div>
-            <div id="followingContent">
-                following go here
-            </div>
-            <div id="followersContent">
-                followers go here
-            </div>
-        </div> -->
-
     </main>
     <!--The profile Page start-->
     <!-- aside element start -->
@@ -354,9 +329,6 @@
             <input type="text" placeholder="Search Twitter" id="searchInput">
 
         </div>
-        <!-- <div id="logoutContainer">
-            <a class="btn btn-primary" href="#" role="button">Logout</a>
-        </div> -->
         <div class="aside_container" id="usersContainer">
         </div>
 

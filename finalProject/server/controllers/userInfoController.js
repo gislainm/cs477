@@ -19,7 +19,7 @@ exports.findUser = async (req, res, next) => {
         for (let user of usrs) {
             if (currentUser.following.includes(user._id)) {
                 usersFound.following.push(user);
-            } else {
+            } else if (user._id.toString() !== currentUser._id.toString()) {
                 usersFound.notFollowing.push(user);
             }
         }
