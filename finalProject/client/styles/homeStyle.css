@@ -15,7 +15,7 @@ html {
 
 :root {
     --twitter-theme-color: #50b7f5;
-    --twitter-background-color: rgba(139, 131, 131, 0.499);
+    --twitter-background-color: rgba(134, 128, 128, 0.151);
 }
 
 .nav_logo {
@@ -283,7 +283,7 @@ aside {
 }
 
 #currentUser:hover {
-    background-color: rgba(149, 147, 147, 0.202);
+    background-color: var(--twitter-background-color);
 }
 
 #userName {
@@ -295,26 +295,228 @@ aside {
     cursor: pointer;
 }
 
-#logoutBtn {
-    background-color: #50b7f5;
-    border-radius: 30px;
-    border-width: 0px;
-}
-
-#logoutBtn:hover {
-    background-color: #0a98f0;
-}
-
-#logoutContainer {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-}
-
 #profilePage {
     display: none;
 }
 
 #tweetsPage {
     display: block;
+}
+
+.userToFollow {
+    color: white;
+    display: flex;
+    flex-direction: rows;
+    justify-content: space-between;
+    background-color: black;
+    margin-bottom: 4px;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.followBtn {
+    background-color: #50b7f5;
+    border-radius: 30px;
+    border-width: 0px;
+    font-size: 12px;
+}
+
+.followBtn:hover {
+    background-color: #0a98f0;
+}
+
+#usersContainer {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    color: white;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.names {
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+
+.username {
+    color: gray;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin-top: -5px;
+}
+
+.unfollowBtn {
+    background-color: white;
+    border-radius: 30px;
+    border-width: 0px;
+    display: none;
+    color: black;
+    font-size: 12px;
+}
+
+.unfollowBtn:hover {
+    background-color: #50b7f5;
+    color: white;
+}
+
+.pop-content {
+    display: none;
+}
+
+.popover-header {
+    background-color: #063c5d;
+    color: white;
+    width: 250px;
+    height: 30px;
+    text-align: center;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.popover-body {
+    background-color: #063c5d;
+    color: white;
+    width: 250px;
+    height: 50px;
+    text-align: center;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+
+.popover-body:hover {
+    background-color: #0279c4;
+    text-decoration: underline;
+}
+
+#logout {
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#profileContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    display: flex;
+    flex: row;
+    cursor: pointer;
+}
+
+#header>div {
+    flex: 1;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.profileHeader {
+    position: sticky;
+    top: 0;
+    background-color: black;
+    color: white;
+    z-index: 10;
+    padding: 15px;
+}
+
+.profileHeader:hover {
+    background-color: var(--twitter-background-color);
+}
+
+#followingContent {
+    display: none;
+}
+
+#followersContent {
+    display: none;
+}
+
+.user_profile-image img {
+    border-radius: 50%;
+    height: 80px;
+}
+
+.user_profile-image {
+    padding: 20px;
+    padding-bottom: 0px;
+    margin-left: 28%;
+    text-align: center;
+}
+
+.profilBody {
+    font-size: 20px;
+    color: white;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    text-align: left;
+    font-weight: 300;
+    padding: 10px;
+    padding-bottom: 15px;
+}
+
+.profilBody:hover {
+    background-color: var(--twitter-background-color);
+}
+
+.profilebodyContent {
+    font-weight: 500;
+    color: #0a98f0;
+    padding-left: 10px;
+}
+
+.profileHeader {
+    padding-bottom: 30px;
+}
+
+.username {
+    display: block;
+    margin-top: 1px;
+}
+
+.usernames {
+    font-size: 1.6rem !important;
+    padding-left: 10px;
+}
+
+.user-row {
+    margin-bottom: 14px;
+}
+
+.user-row:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+.dropdown-user:hover {
+    cursor: pointer;
+}
+
+.table-user-information>tbody>tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information>tbody>tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information>tbody>tr>td {
+    border-top: 0;
+}
+
+.toppad {
+    margin-top: 20px;
+    background-color: black;
+}
+
+.container {
+    background-color: black;
+    max-width: 800px;
 }

@@ -13,5 +13,8 @@ router.post('/signup', logincontroller.signup);
 router.get('/authenticate', logincontroller.authenticate);
 router.post('/user/search', userInfoController.findUser);
 router.get('/tweets', userInfoController.getTweets);
+router.post('/follow', userInfoController.follow);
+router.post('/unfollow', userInfoController.unfollow);
+router.get('/user/:username', userInfoController.fetchProfile);
 
 module.exports = router;

@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="node_modules/reset.css/reset.css">
-
-
     <link rel="stylesheet" href="/styles/homeStyle.css">
-
     <link rel="icon" href="favicon.png">
+    <script type="text/JavaScript" src="https://MomentJS.com/downloads/moment.js"></script>
     <script src="js/tweets.js"></script>
 
 </head>
@@ -65,7 +65,7 @@
             <h2>Bookmarks</h2>
         </div>
 
-        <div class="Menu_options">
+        <div class="Menu_options" id="userProfile">
             <span class="material-icons">person</span>
             <h2>Profile</h2>
         </div>
@@ -82,6 +82,7 @@
                 <img src="/images/user.png" alt="java-logo">
             </div>
             <div id="userName"></div>
+            <div class="pop-content" id="logoutBtn">Logout</div>
         </div>
     </nav>
     <!-- nav bar end -->
@@ -240,150 +241,108 @@
     <!--The profile Page start-->
     <main id="profilePage">
         <div class="header">
-            <h2>Home</h2>
+            <h2>Profile</h2>
         </div>
-
-        <div class="tweet_box">
-            <form>
-                <div class="tweet_box-input">
-                    <img src="/images/profilePic.jpeg" alt="profile image">
-                    <textarea type="text" placeholder="What's happening?"></textarea>
-                    <button class="">Tweet</button>
-
+        <div id="profileContainer">
+            <div id="header">
+                <div id="userInfo" class="profileHeader">
+                    User Info
                 </div>
-            </form>
-
-        </div>
-
-        <div class="post">
-            <div class="post_profile-image">
-                <img src="/images/profilePic.jpeg" alt="java-logo">
-
+                <div id="following" class="profileHeader">
+                    Following
+                    <div id="followingNbr"></div>
+                </div>
+                <div id="followers" class="profileHeader">
+                    Followers
+                    <div id="followersNbr"></div>
+                </div>
             </div>
-
-            <div class="post_body">
-                <div class="post_header">
-                    <div class="post_header-text">
-                        <h3>Java
-                            <span class="header-icon-section">
-                                <span class="material-icons post_badge">verified</span>@java
-                            </span>
-                        </h3>
+            <div id="userInfoContent">
+                <div class="post profileHeader">
+                    <div class="user_profile-image">
+                        <img src="/images/user.png" alt="user-profile">
+                        <div class="post_body">
+                            <div class="post_header">
+                                <div class="post_header-text">
+                                    <h3 class="usernames" id="usernames">
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="container">
+                    <div
+                        class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-5 col-lg-offset-3 ml-3 mr-0 toppad">
+                        <div class=" col-md-12 col-lg-12 ">
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>Department:</td>
+                                        <td>Programming</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hire date:</td>
+                                        <td>06/23/2013</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date of Birth</td>
+                                        <td>01/24/1988</td>
+                                    </tr>
 
-                    <div class="post_header-discription">
-                        <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
-                        <br>
-                        <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
-                            Release notes: https://social.ora.cl/6013KoqQF <br>
-                            API Javadoc: https://social.ora.cl/6015KoqQN <br>
-                            Features: https://social.ora.cl/6016KoqQ4 <br>
-                        </p>
+                                    <tr >
+                                    <tr>
+                                        <td>Gender</td>
+                                        <td>Female</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Home Address</td>
+                                        <td>Kathmandu,Nepal</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td><a href="mailto:info@support.com">info@support.com</a></td>
+                                    </tr>
+                                    <td>Phone Number</td>
+                                    <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+                                    </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
                 </div>
-                <img src="/images/post-image.jpeg" alt="java18">
-
-                <div class="post_footer">
-
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">file_upload</span>
-
-
+                <!-- <div class="post profilBody">
+                    Firstname: <label class="profilebodyContent" id="fname"></label>
                 </div>
-
+                <div class="post profilBody">
+                    Lastname: <label class="profilebodyContent" id="lname"></label>
+                </div>
+                <div class="post profilBody">
+                    Username: <label class="profilebodyContent" id="usrname"></label>
+                </div>
+                <div class="post profilBody">
+                    Email: <label class="profilebodyContent" id="email"></label>
+                </div>
+                <div class="post profilBody">
+                    Phone Number: <label class="profilebodyContent" id="phone"></label>
+                </div>
+                <div class="post profilBody">
+                    Gender: <label class="profilebodyContent" id="gender"></label>
+                </div>
+                <div class="post profilBody">
+                    Date Joined Twitter: <label class="profilebodyContent" id="djt"></label>
+                </div>
             </div>
-
-        </div>
-
-        <div class="post">
-            <div class="post_profile-image">
-                <img src="/images/profilePic.jpeg" alt="java-logo">
-
+            <div id="followingContent">
+                following go here
             </div>
-
-            <div class="post_body">
-                <div class="post_header">
-                    <div class="post_header-text">
-                        <h3>Java
-                            <span class="header-icon-section">
-                                <span class="material-icons post_badge">verified</span>@java
-                            </span>
-                        </h3>
-                    </div>
-
-                    <div class="post_header-discription">
-                        <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
-                        <br>
-                        <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
-                            Release notes: https://social.ora.cl/6013KoqQF <br>
-                            API Javadoc: https://social.ora.cl/6015KoqQN <br>
-                            Features: https://social.ora.cl/6016KoqQ4 <br>
-                        </p>
-                    </div>
-
-                </div>
-                <img src="/images/post-image.jpeg" alt="java18">
-
-                <div class="post_footer">
-
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">file_upload</span>
-
-
-                </div>
-
+            <div id="followersContent">
+                followers go here
             </div>
-
-        </div>
-
-
-        <div class="post">
-            <div class="post_profile-image">
-                <img src="/images/profilePic.jpeg" alt="java-logo">
-
-            </div>
-
-            <div class="post_body">
-                <div class="post_header">
-                    <div class="post_header-text">
-                        <h3>Java
-                            <span class="header-icon-section">
-                                <span class="material-icons post_badge">verified</span>@java
-                            </span>
-                        </h3>
-                    </div>
-
-                    <div class="post_header-discription">
-                        <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
-                        <br>
-                        <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
-                            Release notes: https://social.ora.cl/6013KoqQF <br>
-                            API Javadoc: https://social.ora.cl/6015KoqQN <br>
-                            Features: https://social.ora.cl/6016KoqQ4 <br>
-                        </p>
-                    </div>
-
-                </div>
-                <img src="/images/post-image.jpeg" alt="java18">
-
-                <div class="post_footer">
-
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">file_upload</span>
-
-
-                </div>
-
-            </div>
-
-        </div>
+        </div> -->
 
     </main>
     <!--The profile Page start-->
@@ -395,10 +354,11 @@
             <input type="text" placeholder="Search Twitter" id="searchInput">
 
         </div>
-        <div id="logoutContainer">
-            <a class="btn btn-primary" href="#" id="logoutBtn" role="button">Logout</a>
+        <!-- <div id="logoutContainer">
+            <a class="btn btn-primary" href="#" role="button">Logout</a>
+        </div> -->
+        <div class="aside_container" id="usersContainer">
         </div>
-        
 
         <div class="aside_container">
             <h2>What's happening?</h2>
@@ -417,8 +377,15 @@
 
     </aside>
     <!-- aside element ends -->
-
-
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
