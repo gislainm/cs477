@@ -10,11 +10,11 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="node_modules/reset.css/reset.css">
     <link rel="stylesheet" href="/styles/homeStyle.css">
     <link rel="icon" href="favicon.png">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script type="text/JavaScript" src="https://MomentJS.com/downloads/moment.js"></script>
     <script src="js/tweets.js"></script>
 
@@ -89,7 +89,7 @@
 
 
     <!-- main section start -->
-    <main id="tweetsPage">
+    <main id="tweetsPage" onscroll="tryFunc()">
         <div class="header">
             <h2>Home</h2>
         </div>
@@ -97,142 +97,15 @@
         <div class="tweet_box">
             <form>
                 <div class="tweet_box-input">
-                    <img src="/images/profilePic.jpeg" alt="profile image">
-                    <textarea type="text" placeholder="What's happening?"></textarea>
-                    <button class="">Tweet</button>
+                    <img src="/images/user.png" alt="profile image">
+                    <textarea type="text" placeholder="What's happening?" id="tweetContent"></textarea>
+                    <button id="saveTweet" class="">Tweet</button>
 
                 </div>
             </form>
 
         </div>
-
-        <div class="post">
-            <div class="post_profile-image">
-                <img src="/images/profilePic.jpeg" alt="java-logo">
-
-            </div>
-
-            <div class="post_body">
-                <div class="post_header">
-                    <div class="post_header-text">
-                        <h3>Java
-                            <span class="header-icon-section">
-                                <span class="material-icons post_badge">verified</span>@java
-                            </span>
-                        </h3>
-                    </div>
-
-                    <div class="post_header-discription">
-                        <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
-                        <br>
-                        <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
-                            Release notes: https://social.ora.cl/6013KoqQF <br>
-                            API Javadoc: https://social.ora.cl/6015KoqQN <br>
-                            Features: https://social.ora.cl/6016KoqQ4 <br>
-                        </p>
-                    </div>
-
-                </div>
-                <img src="/images/post-image.jpeg" alt="java18">
-
-                <div class="post_footer">
-
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">file_upload</span>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="post">
-            <div class="post_profile-image">
-                <img src="/images/profilePic.jpeg" alt="java-logo">
-
-            </div>
-
-            <div class="post_body">
-                <div class="post_header">
-                    <div class="post_header-text">
-                        <h3>Java
-                            <span class="header-icon-section">
-                                <span class="material-icons post_badge">verified</span>@java
-                            </span>
-                        </h3>
-                    </div>
-
-                    <div class="post_header-discription">
-                        <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
-                        <br>
-                        <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
-                            Release notes: https://social.ora.cl/6013KoqQF <br>
-                            API Javadoc: https://social.ora.cl/6015KoqQN <br>
-                            Features: https://social.ora.cl/6016KoqQ4 <br>
-                        </p>
-                    </div>
-
-                </div>
-                <img src="/images/post-image.jpeg" alt="java18">
-
-                <div class="post_footer">
-
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">file_upload</span>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="post">
-            <div class="post_profile-image">
-                <img src="/images/profilePic.jpeg" alt="java-logo">
-
-            </div>
-
-            <div class="post_body">
-                <div class="post_header">
-                    <div class="post_header-text">
-                        <h3>Java
-                            <span class="header-icon-section">
-                                <span class="material-icons post_badge">verified</span>@java
-                            </span>
-                        </h3>
-                    </div>
-
-                    <div class="post_header-discription">
-                        <p>Java 18 is now available! #Java18 #JDK18 #openjdk </p>
-                        <br>
-                        <p>Download now: https://social.ora.cl/6012KoqQ0 <br>
-                            Release notes: https://social.ora.cl/6013KoqQF <br>
-                            API Javadoc: https://social.ora.cl/6015KoqQN <br>
-                            Features: https://social.ora.cl/6016KoqQ4 <br>
-                        </p>
-                    </div>
-
-                </div>
-                <img src="/images/post-image.jpeg" alt="java18">
-
-                <div class="post_footer">
-
-                    <span class="material-icons">chat</span>
-                    <span class="material-icons">repeat</span>
-                    <span class="material-icons">favorite_border</span>
-                    <span class="material-icons">file_upload</span>
-
-
-                </div>
-
-            </div>
+        <div id="tweets">
 
         </div>
 

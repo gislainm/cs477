@@ -3,6 +3,7 @@
 const User = require('../models/users');
 const Tweet = require('../models/tweets');
 const responseInfo = require('../models/responseInfo');
+const { ObjectId } = require('mongodb');
 
 exports.findUser = async (req, res, next) => {
     const userNameArr = req.body.username.split('');
@@ -17,7 +18,7 @@ exports.findUser = async (req, res, next) => {
             notFollowing: []
         }
         for (let user of usrs) {
-            if (currentUser.following.includes(user._id)) {
+            if (currentUser.following.includes(user._id) && user._id.toString() !== currentUser._id.toString()) {
                 usersFound.following.push(user);
             } else if (user._id.toString() !== currentUser._id.toString()) {
                 usersFound.notFollowing.push(user);
@@ -34,11 +35,6 @@ exports.findUser = async (req, res, next) => {
 
 };
 
-exports.getTweets = async (req, res, next) => {
-    const tweets = await Tweet.find({ content: "So this is where all the cool people are?" });
-    res.status(200).json(tweets);
-}
-
 exports.follow = async (req, res, next) => {
     let currentUser = req.body.currentUser;
     let currentUserObj = await User.findOne({ username: currentUser });
@@ -51,6 +47,7 @@ exports.follow = async (req, res, next) => {
         res.status(400).json(new responseInfo(true, "follow failed", null));
     }
 };
+
 exports.unfollow = async (req, res, next) => {
     let currentUser = req.body.currentUser;
     let currentUserObj = await User.findOne({ username: currentUser });
@@ -72,4 +69,24 @@ exports.fetchProfile = async (req, res, next) => {
     } catch {
         res.status(400).json(new responseInfo(true, 'profile fetch failed', null));
     }
+}
+
+exports.getTweets = async (req, res, next) => {
+    const users = await User.findOne({ _id: new ObjectId(req.params.uid) }, "following");
+    let tweets = await Tweet.find({ user: { $in: users.following } }).sort({ timePosted: -1 }).skip(+req.params.pageNo * 5).limit(5).populate('user');
+    res.status(200).json(tweets);
+}
+exports.saveTweet = async (req, res, next) => {
+    const tweet = await new Tweet(req.body).save();
+    res.status(200).json(tweet);
+};
+exports.deleteTweet = async (req, res, next) => {
+    let tweet = await Tweet.findById(new ObjectId(req.body.postId));
+    if (tweet) {
+        if (req.body.userId === tweet.user.toString()) {
+            await Tweet.findByIdAndDelete(new ObjectId(req.body.postId));
+            res.send("Deleted")
+        }
+    }
+    else res.send("Try again");
 }

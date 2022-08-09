@@ -1,8 +1,19 @@
 "use strict";
 /*eslint-disable */
 
+//load tweets page
+let pageNo = 0;
+function tryFunc() {
+    let container = document.getElementById('tweetsPage');
+    //console.log(container.scrollTop, container.scrollHeight, container.offsetHeight)
+    if (container.offsetHeight > container.scrollHeight - container.scrollTop - 1) {
+        createTweets();
+    }
+}
+
 window.onload = function () {
     fetchTweets();
+    document.getElementById('saveTweet').onclick = saveTw;
     document.getElementById('backHome').onclick = goBackHome;
     document.getElementById('userProfile').onclick = fetchProfile;
     document.getElementById('userInfo').onclick = displayUserInfo;
@@ -28,26 +39,44 @@ window.onload = function () {
 
 }
 
+// async function fetchTweets() {
+//     console.log("we are on the tweets page")
+//     const response = await fetch(`http://localhost:3000/twitter/authenticate`, {
+//         method: "GET",
+//         headers: {
+//             Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+//         }
+//     });
+
+//     const result = await response.json()
+
+//     if (result.error) {
+//         window.location = 'twitter';
+//     } else {
+//         document.getElementById('userName').innerHTML += result.data.username;
+//         sessionStorage.setItem('permission', JSON.stringify(result.data));
+//         const tweetPromise = await fetch("http://localhost:3000/twitter/tweets");
+//         const tweets = await tweetPromise.json();
+//     }
+// }
+
+//fetch all the tweets from the database
 async function fetchTweets() {
-    console.log("we are on the tweets page")
     const response = await fetch(`http://localhost:3000/twitter/authenticate`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
         }
     });
-
     const result = await response.json()
-
     if (result.error) {
         window.location = 'twitter';
     } else {
-        document.getElementById('userName').innerHTML += result.data.username;
+        document.getElementById('userName').innerHTML = result.data.username;
         sessionStorage.setItem('permission', JSON.stringify(result.data));
-        const tweetPromise = await fetch("http://localhost:3000/twitter/tweets");
-        const tweets = await tweetPromise.json();
+        createTweets();
     }
-}
+};
 
 function logout() {
     sessionStorage.removeItem('permission');
@@ -182,6 +211,7 @@ function changeToFollow(username) {
     document.getElementById("unfollowBtn," + username).style.display = "none";
 }
 
+//fetch information from the database to create a profile page for the current user
 async function fetchProfile() {
     const user = JSON.parse(sessionStorage.getItem("permission")).username;
     const followingContainer = document.getElementById('followingContainer');
@@ -193,7 +223,7 @@ async function fetchProfile() {
     document.getElementById('profilePage').style.display = 'block';
     document.getElementById('tweetsPage').style.display = 'none';
     document.getElementById('followersNbr').innerHTML = userProfile.data.followers.length;
-    document.getElementById('followingNbr').innerHTML = userProfile.data.following.length;
+    document.getElementById('followingNbr').innerHTML = userProfile.data.following.length - 1;
     document.getElementById('usernames').innerHTML = `
         ${userProfile.data.firstName} ${userProfile.data.lastName}
         <span class="material-icons post_badge">verified</span>
@@ -212,16 +242,18 @@ async function fetchProfile() {
         followingContainer.innerHTML = html;
     } else {
         userProfile.data.following.forEach(user => {
-            let html = `<div class="userToFollow" id="specUser,${user.username}">
-                        <div class="usrname">
-                            <div class="names">${user.firstName} ${user.lastName}</div>
-                            <div class="username">${user.username}</div>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary unfollowBtnProfile" id="unfollowBtnProfile,${user.username}" onclick="unfollowProfile(this.id)">Unfollow</button>
-                        </div>
-                    </div>`
-            followingContainer.innerHTML += html;
+            if (user.username !== JSON.parse(sessionStorage.getItem("permission")).username) {
+                let html = `<div class="userToFollow" id="specUser,${user.username}">
+                <div class="usrname">
+                    <div class="names">${user.firstName} ${user.lastName}</div>
+                    <div class="username">${user.username}</div>
+                </div>
+                <div>
+                    <button class="btn btn-primary unfollowBtnProfile" id="unfollowBtnProfile,${user.username}" onclick="unfollowProfile(this.id)">Unfollow</button>
+                </div>
+            </div>`
+                followingContainer.innerHTML += html;
+            }
         })
     }
 
@@ -281,6 +313,150 @@ function displayFollowers() {
     document.getElementById('followersContent').style.display = 'block';
 }
 
+//Go back to the home page from the profile Page 
 function goBackHome() {
     window.location.reload();
+}
+
+//Deleting a tweet if you are on your page
+async function deleteTw(obj) {
+    let id = obj.getAttribute('data-delete');
+    console.log("the id is  ", id)
+    await fetch('http://localhost:3000/twitter/tweets', {
+        method: "DELETE",
+        body: JSON.stringify({
+            userId: JSON.parse(sessionStorage.permission).id,
+            postId: id
+        }),
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+            'Content-Type': 'application/json'
+        }
+    });
+    location.reload();
+}
+
+//Save tweets in the database and post it on the user's homepage
+async function saveTw(event) {
+    event.preventDefault();
+    const userid = JSON.parse(sessionStorage.permission).id;
+    let content = document.getElementById('tweetContent').value;
+    let youtube = '';
+    if (content.includes('youtube.com')) {
+        let copy = content.split(" ");
+        for (let i = 0; i < copy.length; i++) {
+            if (copy[i].includes('youtube.com')) {
+                youtube = copy[i].replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/");
+                content = content.replace(copy[i], ' ')
+            }
+        }
+    }
+    const timePosted = new Date(Date.now());
+    await fetch('http://localhost:3000/twitter/tweets', {
+        method: 'POST',
+        body: JSON.stringify({
+            content: content,
+            user: userid,
+            timePosted: timePosted,
+            youtube: youtube
+        }),
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+            'Content-Type': 'application/json'
+        }
+    });
+    document.getElementById('tweetContent').value = " ";
+    location.reload();
+}
+
+//create the tweets page and load it with fetched tweets
+async function createTweets() {
+    let userId = JSON.parse(sessionStorage.permission).id;
+    const tweetPromise = await fetch(`http://localhost:3000/twitter/tweets/${userId}/${pageNo}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    pageNo++;
+    const tweets = await tweetPromise.json();
+    if (tweets.length > 0) {
+        let html = '';
+        //let html= document.getElementById("tweets").innerHTML;
+        tweets.forEach(element => {
+            let deleteBtn = `<button data-delete="${element._id}" class="btn btn-outline-light" onclick="deleteTw(this)" >Delete</button>`;
+            let time = element.timePosted;
+            let postedAt = moment(time).fromNow();
+            if (element.youtube) {
+                html += `<div class="post">
+                <div class="post_profile-image">
+        <img src="/images/user.png" alt="user profile picture">
+    </div>
+    <div class="post_body">
+        <div class="post_header">
+            <div class="post_header-text">
+                <h3>${element.user.username}
+                    <span class="header-icon-section">
+                        <span class="material-icons post_badge">verified</span>${postedAt}
+                    </span>
+                </h3>
+            </div>
+            <div class="post_header-discription">
+                <p>${element.content}</p>
+                <br>
+                <iframe width="560" height="315" src="${element.youtube}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="post_footer" style="width:78%" >
+            <span class="material-icons">chat</span>
+            <span class="material-icons">repeat</span>
+            <span class="material-icons">favorite_border</span>
+            <div name="forDelete"></div>
+        </div>
+        </div>
+    </div>`}
+            else {
+                html += `<div class="post">
+                <div class="post_profile-image">
+        <img src="/images/user.png" alt="java-logo">
+    </div>
+    <div class="post_body">
+        <div class="post_header">
+            <div class="post_header-text">
+                <h3>${element.user.username}
+                    <span class="header-icon-section">
+                        <span class="material-icons post_badge">verified</span>${postedAt}
+                    </span>
+                </h3>
+            </div>
+            <div class="post_header-discription">
+                <p>${element.content}</p>
+                <br>
+            </div>
+        </div>
+        <div class="post_footer" style="width:78%">
+            <span class="material-icons">chat</span>
+            <span class="material-icons">repeat</span>
+            <span class="material-icons">favorite_border 123</span>
+            <div name="forDelete"></div>
+        </div>
+        </div>
+    </div>`
+            }
+            if (userId === element.user._id) {
+                html = html.replace('<div name="forDelete"></div>', deleteBtn)
+            }
+        });
+        let loading = '<div id="theEnd" style="color:white; text-align:center; padding:3%">Loading more...</div>'
+        let oldContent = document.getElementById("tweets").innerHTML;
+        if (oldContent.includes(loading)) {
+            oldContent = oldContent.replace(loading, " ")
+        }
+        document.getElementById("tweets").innerHTML = ''
+        document.getElementById("tweets").innerHTML = oldContent + html + loading;
+    }
+    else {
+        document.getElementById("theEnd").innerHTML = '<p class="alert alert-primary">Sorry &#128543  No more tweets to load. Please follow more Twitter users.</p>'
+        document.getElementById("tweetsPage").removeAttribute("onscroll");
+    }
 }
