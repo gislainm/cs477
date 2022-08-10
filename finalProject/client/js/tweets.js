@@ -39,27 +39,6 @@ window.onload = function () {
 
 }
 
-// async function fetchTweets() {
-//     console.log("we are on the tweets page")
-//     const response = await fetch(`http://localhost:3000/twitter/authenticate`, {
-//         method: "GET",
-//         headers: {
-//             Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
-//         }
-//     });
-
-//     const result = await response.json()
-
-//     if (result.error) {
-//         window.location = 'twitter';
-//     } else {
-//         document.getElementById('userName').innerHTML += result.data.username;
-//         sessionStorage.setItem('permission', JSON.stringify(result.data));
-//         const tweetPromise = await fetch("http://localhost:3000/twitter/tweets");
-//         const tweets = await tweetPromise.json();
-//     }
-// }
-
 //fetch all the tweets from the database
 async function fetchTweets() {
     const response = await fetch(`http://localhost:3000/twitter/authenticate`, {

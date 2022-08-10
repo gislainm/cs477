@@ -112,6 +112,11 @@ function signUpUser() {
 }
 
 async function registerUser(fname, lname, username, email, phone, password, gender) {
+    let usernameArr = username.split('');
+    if (usernameArr[0] !== "@") {
+        usernameArr.unshift("@");
+    }
+    username = usernameArr.join('');
     const response = await fetch('http://localhost:3000/twitter/signup', {
         method: 'POST',
         body: JSON.stringify({
@@ -132,19 +137,6 @@ async function registerUser(fname, lname, username, email, phone, password, gend
         document.getElementById('errorMessage').innerHTML = result.message;
         document.getElementById('errorMessage').style.display = 'block';
     } else {
-        // const res = await fetch(`http://localhost:3000/twitter/login`, {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         userEntry: result.email,
-        //         password: password
-        //     }),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // });
-        // const permission = await res.json();
-        // sessionStorage.setItem('accessToken', permission.data.accessToken);
-        // goToHome();
         window.location = '/twitter';
     }
 

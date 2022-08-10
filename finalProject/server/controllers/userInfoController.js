@@ -6,12 +6,10 @@ const responseInfo = require('../models/responseInfo');
 const { ObjectId } = require('mongodb');
 
 exports.findUser = async (req, res, next) => {
-    const userNameArr = req.body.username.split('');
-    userNameArr[0] = userNameArr[0].toUpperCase();
-    let userName = userNameArr.join('');
+    const userName = req.body.username;
     const currentUserId = req.body.currentUserId;
     try {
-        const usrs = await User.find({ username: { $regex: "^@" + userName } });
+        const usrs = await User.find({ username: { $regex: userName, $options: 'i' } });
         const currentUser = await User.findById(currentUserId);
         const usersFound = {
             following: [],
