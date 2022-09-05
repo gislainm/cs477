@@ -33,7 +33,7 @@ window.onload = function () {
     });
     $('#currentUser').on('shown.bs.popover', function () {
         $("#logout").on('click', function () {
-            logout();
+            logout(); 
         });
     });
 
@@ -159,7 +159,7 @@ async function unfollow(usrname) {
         console.log(result.message);
     } else {
         changeToFollow(username);
-        fetchProfile()
+         fetchProfile()
     }
 }
 async function unfollowProfile(usrname) {
